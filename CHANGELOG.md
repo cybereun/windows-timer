@@ -1,5 +1,31 @@
 # WindowsTimer Release History
 
+## v1.1.4 — 2026-10-24
+
+### 한국어
+- 5G 휴대폰도 연결할 수 있도록 고급 원격 설정에 임시 인터넷 연결 시작·중지 기능을 추가했습니다. PC 화면의 HTTPS 주소를 열고 6자리 코드를 입력하면 됩니다.
+- Cloudflare `cloudflared`를 버튼을 눌렀을 때 공식 GitHub 릴리스에서 내려받고 SHA-256을 검사합니다. 앱을 종료하면 터널도 닫히며, 다시 시작하면 임시 주소가 바뀔 수 있습니다.
+- DNS가 준비되고 HTTPS 연결 화면이 열리는지 확인한 뒤 주소를 표시합니다.
+- 터널의 HTTPS 요청 출처 검증과 청크 방식 요청 본문 처리를 추가하고 원격 코드 입력 화면을 실제 loopback 서버에서 검사합니다.
+
+### English
+- Added start/stop controls for temporary internet access, allowing a 5G phone to reach the PC through the HTTPS address shown in Advanced remote settings and pair with its six-digit code.
+- Downloads Cloudflare `cloudflared` from its official GitHub release on demand and verifies its SHA-256. The tunnel stops when the app closes; its temporary address may change after restart.
+- Waits for DNS and confirms the HTTPS pairing page opens before showing the address.
+- Added HTTPS tunnel origin validation and chunked request-body handling, with a loopback test for the remote pairing page.
+
+### 日本語
+- 詳細設定のリモート項目に一時インターネット接続の開始・停止を追加し、5GスマートフォンからPC画面のHTTPSアドレスへ接続して6桁コードでペアリングできるようにしました。
+- Cloudflare `cloudflared`をボタン操作時に公式GitHubリリースからダウンロードし、SHA-256を検証します。アプリ終了時にトンネルを停止し、再起動後は一時アドレスが変わる場合があります。
+- DNSとHTTPSの接続画面を確認してからアドレスを表示します。
+- HTTPSトンネルのOrigin検証とチャンク形式のリクエスト本文に対応し、loopbackサーバーで接続コード画面を検査します。
+
+### 简体中文
+- 在高级远程设置中添加临时互联网连接的启动和停止功能。5G 手机打开电脑显示的 HTTPS 地址，并输入 6 位代码即可配对。
+- 点击后从 Cloudflare 官方 GitHub 发布页下载 `cloudflared` 并验证 SHA-256。关闭应用时隧道也会关闭；重新启动后临时地址可能改变。
+- 确认 DNS 和 HTTPS 配对页面可以打开后再显示地址。
+- 增加 HTTPS 隧道来源验证和分块请求正文处理，并通过 loopback 服务器检查远程配对页面。
+
 ## v1.1.3 — 2026-10-24
 
 ### 한국어

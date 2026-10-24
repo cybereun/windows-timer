@@ -3,7 +3,7 @@
 # 윈도우 타이머 · WindowsTimer
 
 [![Windows](https://img.shields.io/badge/Windows-10%2F11-557A95?style=for-the-badge&logo=windows)](#)
-[![Version](https://img.shields.io/badge/version-1.1.3-B25B3A?style=for-the-badge)](https://github.com/cybereun/windows-timer/releases)
+[![Version](https://img.shields.io/badge/version-1.1.4-B25B3A?style=for-the-badge)](https://github.com/cybereun/windows-timer/releases)
 [![Developer: Lebi](https://img.shields.io/badge/Developer-Lebi-4C3B32?style=for-the-badge&logo=github&logoColor=white)](https://github.com/cybereun)
 
 [한국어](#한국어) · [English](#english) · [日本語](#日本語) · [简体中文](#简体中文)
@@ -27,12 +27,12 @@
 - 예약 기록과 종료 방식·시간 프로필을 저장합니다.
 - Windows 로그인 시 자동 실행, 절전 타이머로 PC 깨우기, 시스템 트레이 남은 시간 표시를 설정합니다.
 - 한국어, 영어, 일본어, 중국어 간체 UI를 제공합니다.
-- 휴대폰이나 다른 PC의 브라우저에서 현재 PC의 예약을 만들고 취소합니다.
+- 휴대폰이나 다른 PC의 브라우저에서 현재 PC의 예약을 만들고 취소합니다. 같은 네트워크에서는 LAN 주소를 쓰고, 5G에서는 **5G 인터넷 연결 시작**을 눌러 임시 HTTPS 주소를 만듭니다. Cloudflare 터널 프로그램은 요청 시 공식 배포처에서 내려받고 SHA-256을 확인합니다.
 - 앱 시작 후 12초 뒤 최신 버전을 확인하고, 새 버전이 있으면 GitHub CLI로 자동 다운로드·검증·교체·재실행합니다. 예약 실행 중에는 예약이 끝난 뒤 적용합니다. 비공개 저장소 접근을 위해 `winget install --id GitHub.cli`로 GitHub CLI를 설치하고 `gh auth login --hostname github.com`으로 한 번 로그인해야 합니다. v1.1.3에서 업데이트 연결 오류를 수정했습니다. v1.1.2 사용자는 v1.1.3을 한 번 직접 설치해야 하며, 이후 버전부터 자동 업데이트됩니다.
 
 ### 다운로드와 실행
 
-1. [Releases](https://github.com/cybereun/windows-timer/releases)에서 `WindowsTimer-v1.1.3.exe` 또는 배포 ZIP을 받습니다. 저장소가 비공개이므로 접근 권한이 있는 GitHub 계정으로 로그인해야 합니다.
+1. [Releases](https://github.com/cybereun/windows-timer/releases)에서 `WindowsTimer-v1.1.4.exe` 또는 배포 ZIP을 받습니다. 저장소가 비공개이므로 접근 권한이 있는 GitHub 계정으로 로그인해야 합니다.
 2. 실행 파일을 열고 메인 화면에서 종료·재부팅과 시간을 선택한 뒤 **예약 시작**을 누릅니다.
 3. 예약 중에는 앱을 실행해 두세요. 창을 닫으면 시스템 트레이로 숨겨지고, 트레이의 **앱 종료**는 예약도 취소합니다. 저장하지 않은 파일은 미리 저장하세요.
 
@@ -42,9 +42,9 @@
 
 1. PC 앱의 **고급 → 휴대폰 · 다른 PC에서 원격 예약**에서 원격 접속을 켭니다.
 2. 같은 사설망의 휴대폰에서 표시된 `http://...` 주소를 열고, PC에 표시된 6자리 코드를 입력합니다. 연결 코드는 5분 동안 한 번만 사용할 수 있습니다.
-3. 인터넷을 통해 접속하려면 휴대폰과 PC를 같은 VPN에 연결한 뒤 PC에 표시된 VPN 주소를 사용합니다. 앱은 공용 인터넷에 포트를 열거나 라우터 포트 전달을 설정하지 않습니다.
+3. 휴대폰이 5G라면 **5G 인터넷 연결 시작**을 누르고 새로 표시된 `https://...trycloudflare.com` 주소를 휴대폰에서 엽니다. 화면의 6자리 코드를 입력하면 됩니다. VPN이나 라우터 설정은 필요하지 않습니다.
 
-LAN 연결은 HTTP라 네트워크에서 암호화되지 않습니다. 신뢰할 수 있는 사설 Wi-Fi에서만 사용하세요. 외부 접속은 양쪽 기기를 VPN에 연결하세요. 연결 토큰은 PC에 저장할 때 Windows 사용자 계정의 DPAPI로 암호화됩니다. 예약은 2분에서 7일 사이로 만들며, 실행 전 PC에 60초 취소 알림이 표시됩니다.
+LAN 연결은 HTTP라 신뢰할 수 있는 사설 Wi-Fi에서만 사용하세요. 5G 연결은 Cloudflare 임시 Quick Tunnel을 사용하며 앱을 종료하면 끊기고 다시 시작할 때 주소가 바뀔 수 있습니다. 이 임시 터널은 Cloudflare를 경유하며 상시 서비스용이 아닙니다. 링크로 연결 화면을 열어도 예약에는 PC에 표시된 5분 유효 6자리 코드가 필요합니다. 연결 토큰은 PC에서 Windows 사용자 계정의 DPAPI로 암호화합니다. 예약은 2분에서 7일 사이로 만들며, 실행 전 PC에 60초 취소 알림이 표시됩니다. [Cloudflare Quick Tunnel 안내](https://developers.cloudflare.com/tunnel/get-started/quick-tunnels/)
 
 ### 빌드 및 안전 검사
 
@@ -75,12 +75,12 @@ WindowsTimer is a lightweight Windows desktop app for scheduling shutdown, resta
 - Keep schedule history and save reusable action/time profiles.
 - Start with Windows, wake the PC for a scheduled time, and show the remaining time in the system tray.
 - Use the interface in Korean, English, Japanese, or Simplified Chinese.
-- Create or cancel a schedule from a phone or another PC browser.
+- Create or cancel a schedule from a phone or another PC browser. Use the LAN address on the same network, or start temporary HTTPS access for a phone on 5G. Cloudflare tunnel software is fetched from its official release and SHA-256 checked on request.
 - Checks for updates 12 seconds after launch and uses GitHub CLI to download, verify, replace, and restart for a newer release. An active one-time schedule finishes first. Because the repository is private, install GitHub CLI with `winget install --id GitHub.cli` and sign in once with `gh auth login --hostname github.com`. v1.1.3 fixes the update connection. Users on v1.1.2 must install v1.1.3 manually once; later versions update automatically.
 
 ### Download and run
 
-1. Download `WindowsTimer-v1.1.3.exe` or the release ZIP from [Releases](https://github.com/cybereun/windows-timer/releases). The repository is private, so sign in with an account that has access.
+1. Download `WindowsTimer-v1.1.4.exe` or the release ZIP from [Releases](https://github.com/cybereun/windows-timer/releases). The repository is private, so sign in with an account that has access.
 2. Run the executable, choose shutdown or restart and a time on the main screen, then select **예약 시작** (Start schedule).
 3. Keep the app running while a schedule is active. Closing the window hides it in the system tray. **앱 종료** (Exit app) in the tray cancels active schedules too. Save open files first.
 
@@ -90,9 +90,9 @@ Sleep and hibernate are available in **Advanced → One-time schedule · other a
 
 1. In **Advanced → Remote scheduling from phone or PC**, enable remote access.
 2. On the same private network, open the displayed `http://...` address on the phone and enter the six-digit code shown on the PC. The code works once and expires after five minutes.
-3. For access over the internet, connect the phone and PC to the same VPN and use the PC's VPN address. The app does not expose a public internet port or configure router port forwarding.
+3. For a phone on 5G, select **Start 5G internet access** and open the new `https://...trycloudflare.com` address on the phone. Enter the six-digit code shown on the PC. No VPN or router configuration is needed.
 
-LAN traffic uses unencrypted HTTP, so use a trusted private Wi-Fi network only. Connect both devices through a VPN for internet access. The PC encrypts saved pairing tokens with the current Windows user's DPAPI. Remote schedules are limited to two minutes through seven days and still show a 60-second warning on the PC.
+LAN traffic uses unencrypted HTTP, so use a trusted private Wi-Fi network only. 5G access uses a temporary Cloudflare Quick Tunnel that stops when the app closes and may have a different address after restart. Quick Tunnels relay internet traffic through Cloudflare and are temporary, not an always-on service. Opening the link only shows the pairing page; a six-digit code displayed on the PC is still required and expires after five minutes. The PC encrypts saved pairing tokens with the current Windows user's DPAPI. Remote schedules are limited to two minutes through seven days and still show a 60-second warning on the PC. [Cloudflare Quick Tunnel documentation](https://developers.cloudflare.com/tunnel/get-started/quick-tunnels/)
 
 ### Build and safe checks
 
@@ -123,12 +123,12 @@ WindowsTimer は、Windows のシャットダウン、再起動、スリープ�
 - 予約履歴と、操作・時間を再利用するプロファイルを保存します。
 - Windowsログイン時の自動起動、スリープ解除タイマー、システムトレイの残り時間表示に対応します。
 - 韓国語、英語、日本語、簡体字中国語のUIを選べます。
-- スマートフォンや別のPCのブラウザーから予約を作成・取り消せます。
+- スマートフォンや別のPCのブラウザーから予約を作成・取り消せます。同じネットワークではLANアドレスを使い、5Gでは**5Gインターネット接続を開始**して一時HTTPSアドレスを作成します。Cloudflareトンネルは要求時に公式配布元からダウンロードし、SHA-256を確認します。
 - 起動から12秒後に新しいバージョンを確認し、GitHub CLIで更新をダウンロード、検証、置き換え、再起動します。1回予約の実行中は予約終了後に適用します。リポジトリが非公開のため、`winget install --id GitHub.cli`でGitHub CLIをインストールし、`gh auth login --hostname github.com`で一度ログインしてください。v1.1.3で更新接続の不具合を修正しました。v1.1.2のユーザーは一度だけv1.1.3を手動でインストールしてください。以降の更新は自動です。
 
 ### ダウンロードと実行
 
-1. [Releases](https://github.com/cybereun/windows-timer/releases) から `WindowsTimer-v1.1.3.exe` または ZIP をダウンロードします。非公開リポジトリのため、アクセス権のある GitHub アカウントが必要です。
+1. [Releases](https://github.com/cybereun/windows-timer/releases) から `WindowsTimer-v1.1.4.exe` または ZIP をダウンロードします。非公開リポジトリのため、アクセス権のある GitHub アカウントが必要です。
 2. 実行ファイルを開き、メイン画面でシャットダウンまたは再起動と時間を選び、**예약 시작**（予約開始）を押します。
 3. 予約中はアプリを起動したままにしてください。ウィンドウを閉じるとシステムトレイに格納されます。トレイの **앱 종료**（アプリ終了）を選ぶと予約も取り消されます。開いているファイルは先に保存してください。
 
@@ -138,9 +138,9 @@ WindowsTimer は、Windows のシャットダウン、再起動、スリープ�
 
 1. **詳細 → スマホ・別のPCから遠隔予約** でリモート接続を有効にします。
 2. 同じプライベートネットワーク上のスマートフォンで表示された `http://...` を開き、PC画面の6桁コードを入力します。コードは1回限りで5分後に失効します。
-3. インターネット経由の場合は、スマートフォンとPCを同じVPNに接続し、PCに表示されたVPNアドレスを使います。アプリは公開インターネットにポートを開かず、ルーターのポート転送も設定しません。
+3. 5Gのスマートフォンでは、**5Gインターネット接続を開始**を押して、新しく表示された `https://...trycloudflare.com` アドレスを開きます。PCに表示された6桁コードを入力してください。VPNやルーターの設定は不要です。
 
-LAN通信は暗号化されないHTTPです。信頼できるプライベートWi-Fiでのみ使ってください。外部接続では両方の端末をVPNに接続してください。保存した接続トークンはWindowsユーザーのDPAPIで暗号化します。予約範囲は2分から7日で、実行60秒前にはPCに通知が表示されます。
+LAN通信は暗号化されないHTTPなので、信頼できるプライベートWi-Fiでのみ使ってください。5G接続には一時的なCloudflare Quick Tunnelを使用します。アプリを終了すると切断され、再起動後はアドレスが変わることがあります。Cloudflareを経由し、常時稼働向けのサービスではありません。リンクを開くと接続画面が表示されますが、予約にはPCに表示された6桁コードが必要で、5分後に失効します。接続トークンはWindowsユーザーのDPAPIで暗号化します。予約範囲は2分から7日で、実行60秒前にPCへ通知します。[Cloudflare Quick Tunnelの説明](https://developers.cloudflare.com/tunnel/get-started/quick-tunnels/)
 
 ### ビルドと安全な確認
 
@@ -171,12 +171,12 @@ WindowsTimer 是一款用于预约 Windows 关机、重启、睡眠和休眠的�
 - 保存预约历史以及可复用的操作和时间配置。
 - 设置 Windows 登录时启动、预约时唤醒电脑，以及在系统托盘显示剩余时间。
 - 支持韩语、英语、日语和简体中文界面。
-- 从手机或其他电脑的浏览器创建或取消预约。
+- 从手机或其他电脑的浏览器创建或取消预约。同一网络使用 LAN 地址；使用 5G 时，点击**启动 5G 网络连接**生成临时 HTTPS 地址。Cloudflare 隧道程序按需从官方发布页下载，并验证 SHA-256。
 - 启动12秒后检查新版本；发现更新时，使用 GitHub CLI 下载、验证、替换程序并重新启动。单次预约正在执行时，会等预约结束后再应用更新。由于仓库为私有，请运行 `winget install --id GitHub.cli` 安装 GitHub CLI，再运行 `gh auth login --hostname github.com` 登录一次。v1.1.3 修复了更新连接问题。v1.1.2 用户需要手动安装一次 v1.1.3；之后的版本会自动更新。
 
 ### 下载和运行
 
-1. 从 [Releases](https://github.com/cybereun/windows-timer/releases) 下载 `WindowsTimer-v1.1.3.exe` 或发布 ZIP。仓库为私有，需要使用有访问权限的 GitHub 账号登录。
+1. 从 [Releases](https://github.com/cybereun/windows-timer/releases) 下载 `WindowsTimer-v1.1.4.exe` 或发布 ZIP。仓库为私有，需要使用有访问权限的 GitHub 账号登录。
 2. 运行程序，在主界面选择关机或重启和时间，然后点击 **예약 시작**（开始预约）。
 3. 预约期间请保持应用运行。关闭窗口会将其隐藏到系统托盘；从托盘选择 **앱 종료**（退出应用）也会取消预约。请先保存文件。
 
@@ -186,9 +186,9 @@ WindowsTimer 是一款用于预约 Windows 关机、重启、睡眠和休眠的�
 
 1. 在 **高级 → 通过手机或其他电脑远程预约** 中启用远程访问。
 2. 手机连接同一专用网络后，打开应用显示的 `http://...` 地址，并输入电脑上显示的6位代码。代码只能使用一次，5分钟后失效。
-3. 通过互联网访问时，让手机和电脑连接同一 VPN，再使用电脑显示的 VPN 地址。应用不会向公共互联网开放端口，也不会设置路由器端口转发。
+3. 使用 5G 手机时，点击**启动 5G 网络连接**，然后在手机上打开新显示的 `https://...trycloudflare.com` 地址。输入电脑屏幕上的 6 位代码即可，无需 VPN 或路由器设置。
 
-局域网通信使用未加密的 HTTP，请仅在可信的专用 Wi-Fi 网络中使用。通过互联网访问时，请让两台设备连接 VPN。连接令牌在电脑上使用当前 Windows 用户的 DPAPI 加密保存。远程预约时间为2分钟至7天，执行前电脑仍会显示60秒提醒。
+局域网使用未加密的 HTTP，请仅在可信的专用 Wi-Fi 网络中使用。5G 连接通过临时 Cloudflare Quick Tunnel 提供；关闭应用后连接会停止，重新启动后地址可能改变。请求会经由 Cloudflare 中转，临时隧道不保证持续运行。打开链接只会显示配对页面，仍需输入电脑上显示的 6 位代码，该代码 5 分钟后失效。配对令牌使用当前 Windows 用户的 DPAPI 加密保存。远程预约时间为 2 分钟至 7 天，执行前电脑仍会显示 60 秒提醒。[Cloudflare Quick Tunnel 文档](https://developers.cloudflare.com/tunnel/get-started/quick-tunnels/)
 
 ### 构建和安全检查
 
