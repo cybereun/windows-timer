@@ -17,4 +17,4 @@
 ## 배포
 - .NET Framework 4.x WinForms standalone EXE
 - GitHub 저장소 `cybereun/windows-timer`, private visibility
-- `v1.0.0` release: EXE, ZIP, SHA-256 manifest
+- `v1.0.1` release: EXE, ZIP, SHA-256 manifest; selected button colors repaint immediately after clicks

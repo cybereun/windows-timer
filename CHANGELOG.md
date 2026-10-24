@@ -1,5 +1,19 @@
 # WindowsTimer Release History
 
+## v1.0.1 — 2026-10-24
+
+### 한국어
+- 종료·재부팅, 분 단위/날짜·시간, 빠른 시간 선택 버튼을 누른 직후 선택 색상이 바로 갱신되도록 수정했습니다.
+
+### English
+- Fixed selected colors so action, time-mode, and quick-duration buttons update immediately after a click.
+
+### 日本語
+- 終了・再起動、時間モード、時間プリセットのボタンをクリックした直後に選択色が更新されるよう修正しました。
+
+### 简体中文
+- 修复了点击关机/重启、时间模式和快捷时长按钮后，选中颜色不能立即更新的问题。
+
 ## v1.0.0 — 2026-10-24
 
 ### 한국어

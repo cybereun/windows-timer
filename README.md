@@ -3,7 +3,7 @@
 # 윈도우 타이머 · WindowsTimer
 
 [![Windows](https://img.shields.io/badge/Windows-10%2F11-557A95?style=for-the-badge&logo=windows)](#)
-[![Version](https://img.shields.io/badge/version-1.0.0-B25B3A?style=for-the-badge)](https://github.com/cybereun/windows-timer/releases)
+[![Version](https://img.shields.io/badge/version-1.0.1-B25B3A?style=for-the-badge)](https://github.com/cybereun/windows-timer/releases)
 [![Developer: Lebi](https://img.shields.io/badge/Developer-Lebi-4C3B32?style=for-the-badge&logo=github&logoColor=white)](https://github.com/cybereun)
 
 [한국어](#한국어) · [English](#english) · [日本語](#日本語) · [简体中文](#简体中文)

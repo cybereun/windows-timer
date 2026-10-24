@@ -4,5 +4,5 @@ using System.Reflection;
 [assembly: AssemblyCompany("Lebi")]
 [assembly: AssemblyProduct("윈도우 타이머")]
 [assembly: AssemblyCopyright("Copyright © Lebi")]
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyVersion("1.0.1.0")]
+[assembly: AssemblyFileVersion("1.0.1.0")]
