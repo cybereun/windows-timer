@@ -1,0 +1,7 @@
+dist/
+WindowsTimer.exe
+test-results.txt
+*.pdb
+*.obj
+*.ilk
+*.cache
