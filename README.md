@@ -3,7 +3,7 @@
 # 윈도우 타이머 · WindowsTimer
 
 [![Windows](https://img.shields.io/badge/Windows-10%2F11-557A95?style=for-the-badge&logo=windows)](#)
-[![Version](https://img.shields.io/badge/version-1.1.0-B25B3A?style=for-the-badge)](https://github.com/cybereun/windows-timer/releases)
+[![Version](https://img.shields.io/badge/version-1.1.1-B25B3A?style=for-the-badge)](https://github.com/cybereun/windows-timer/releases)
 [![Developer: Lebi](https://img.shields.io/badge/Developer-Lebi-4C3B32?style=for-the-badge&logo=github&logoColor=white)](https://github.com/cybereun)
 
 [한국어](#한국어) · [English](#english) · [日本語](#日本語) · [简体中文](#简体中文)
@@ -16,7 +16,7 @@
 
 ## 한국어
 
-윈도우 타이머는 Windows 종료, 재부팅, 절전, 최대 절전을 예약하는 가벼운 Windows 데스크톱 앱입니다. 기존 메인 예약 화면을 유지하고, 추가 설정은 왼쪽 **고급** 메뉴에 모았습니다. Google Fonts의 Noto Sans KR 글꼴과 앱 아이콘을 실행 파일에 포함해 별도 설치 없이 실행할 수 있습니다.
+윈도우 타이머는 Windows 종료, 재부팅, 절전, 최대 절전을 예약하는 가벼운 Windows 데스크톱 앱입니다. 기존 메인 예약 화면은 유지하고, **고급** 메뉴의 일정·보호·시스템·프로필·기록·원격 설정을 네 개 탭으로 나눴습니다. 한 번에 한 종류의 설정만 표시합니다. Google Fonts의 Noto Sans KR 글꼴과 앱 아이콘을 실행 파일에 포함해 별도 설치 없이 실행할 수 있습니다.
 
 ### 기능
 
@@ -32,7 +32,7 @@
 
 ### 다운로드와 실행
 
-1. [Releases](https://github.com/cybereun/windows-timer/releases)에서 `WindowsTimer-v1.1.0.exe` 또는 배포 ZIP을 받습니다. 저장소가 비공개이므로 접근 권한이 있는 GitHub 계정으로 로그인해야 합니다.
+1. [Releases](https://github.com/cybereun/windows-timer/releases)에서 `WindowsTimer-v1.1.1.exe` 또는 배포 ZIP을 받습니다. 저장소가 비공개이므로 접근 권한이 있는 GitHub 계정으로 로그인해야 합니다.
 2. 실행 파일을 열고 메인 화면에서 종료·재부팅과 시간을 선택한 뒤 **예약 시작**을 누릅니다.
 3. 예약 중에는 앱을 실행해 두세요. 창을 닫으면 시스템 트레이로 숨겨지고, 트레이의 **앱 종료**는 예약도 취소합니다. 저장하지 않은 파일은 미리 저장하세요.
 
@@ -64,7 +64,7 @@ Noto Sans KR은 [Google Fonts](https://fonts.google.com/specimen/Noto+Sans+KR)�
 
 ## English
 
-WindowsTimer is a lightweight Windows desktop app for scheduling shutdown, restart, sleep, and hibernate. The main scheduling screen remains familiar; extra options live in the left-side **Advanced** page. Noto Sans KR and the app icon are bundled in the executable, so no separate installation is required.
+WindowsTimer is a lightweight Windows desktop app for scheduling shutdown, restart, sleep, and hibernate. The main scheduling screen stays familiar. The **Advanced** page groups settings into four tabs, showing one category at a time. Noto Sans KR and the app icon are bundled in the executable, so no separate installation is required.
 
 ### Features
 
@@ -80,7 +80,7 @@ WindowsTimer is a lightweight Windows desktop app for scheduling shutdown, resta
 
 ### Download and run
 
-1. Download `WindowsTimer-v1.1.0.exe` or the release ZIP from [Releases](https://github.com/cybereun/windows-timer/releases). The repository is private, so sign in with an account that has access.
+1. Download `WindowsTimer-v1.1.1.exe` or the release ZIP from [Releases](https://github.com/cybereun/windows-timer/releases). The repository is private, so sign in with an account that has access.
 2. Run the executable, choose shutdown or restart and a time on the main screen, then select **예약 시작** (Start schedule).
 3. Keep the app running while a schedule is active. Closing the window hides it in the system tray. **앱 종료** (Exit app) in the tray cancels active schedules too. Save open files first.
 
@@ -112,7 +112,7 @@ Noto Sans KR is from [Google Fonts](https://fonts.google.com/specimen/Noto+Sans+
 
 ## 日本語
 
-WindowsTimer は、Windows のシャットダウン、再起動、スリープ、休止状態を予約する軽量デスクトップアプリです。メインの予約画面はそのままにし、追加設定を左側の **詳細** メニューにまとめました。Noto Sans KR とアプリアイコンを実行ファイルに同梱しています。
+WindowsTimer は、Windows のシャットダウン、再起動、スリープ、休止状態を予約する軽量デスクトップアプリです。メインの予約画面はそのままにし、左側の **詳細** メニューを4つのタブに分け、設定を種類ごとに表示します。Noto Sans KR とアプリアイコンを実行ファイルに同梱しています。
 
 ### 主な機能
 
@@ -128,7 +128,7 @@ WindowsTimer は、Windows のシャットダウン、再起動、スリープ�
 
 ### ダウンロードと実行
 
-1. [Releases](https://github.com/cybereun/windows-timer/releases) から `WindowsTimer-v1.1.0.exe` または ZIP をダウンロードします。非公開リポジトリのため、アクセス権のある GitHub アカウントが必要です。
+1. [Releases](https://github.com/cybereun/windows-timer/releases) から `WindowsTimer-v1.1.1.exe` または ZIP をダウンロードします。非公開リポジトリのため、アクセス権のある GitHub アカウントが必要です。
 2. 実行ファイルを開き、メイン画面でシャットダウンまたは再起動と時間を選び、**예약 시작**（予約開始）を押します。
 3. 予約中はアプリを起動したままにしてください。ウィンドウを閉じるとシステムトレイに格納されます。トレイの **앱 종료**（アプリ終了）を選ぶと予約も取り消されます。開いているファイルは先に保存してください。
 
@@ -160,7 +160,7 @@ Noto Sans KR は [Google Fonts](https://fonts.google.com/specimen/Noto+Sans+KR) 
 
 ## 简体中文
 
-WindowsTimer 是一款用于预约 Windows 关机、重启、睡眠和休眠的轻量桌面应用。主预约界面保持原样，其他选项集中在左侧的 **高级** 菜单。Noto Sans KR 字体和应用图标已包含在可执行文件中，无需单独安装。
+WindowsTimer 是一款用于预约 Windows 关机、重启、睡眠和休眠的轻量桌面应用。主预约界面保持原样，左侧 **高级** 页面按用途分为四个标签，每次只显示一类设置。Noto Sans KR 字体和应用图标已包含在可执行文件中，无需单独安装。
 
 ### 主要功能
 
@@ -176,7 +176,7 @@ WindowsTimer 是一款用于预约 Windows 关机、重启、睡眠和休眠的�
 
 ### 下载和运行
 
-1. 从 [Releases](https://github.com/cybereun/windows-timer/releases) 下载 `WindowsTimer-v1.1.0.exe` 或发布 ZIP。仓库为私有，需要使用有访问权限的 GitHub 账号登录。
+1. 从 [Releases](https://github.com/cybereun/windows-timer/releases) 下载 `WindowsTimer-v1.1.1.exe` 或发布 ZIP。仓库为私有，需要使用有访问权限的 GitHub 账号登录。
 2. 运行程序，在主界面选择关机或重启和时间，然后点击 **예약 시작**（开始预约）。
 3. 预约期间请保持应用运行。关闭窗口会将其隐藏到系统托盘；从托盘选择 **앱 종료**（退出应用）也会取消预约。请先保存文件。
 

@@ -3,11 +3,11 @@
 ## 제품명
 - 한국어: 윈도우 타이머
 - 실행 파일 / GitHub 저장소: WindowsTimer / windows-timer
-- 현재 버전: 1.1.0
+- 현재 버전: 1.1.1
 
 ## 화면 방향
 - 기존 메인 예약 화면과 크림·브라운·테라코타 UI를 유지한다.
-- 추가 기능은 왼쪽 **고급** 메뉴에서 설정한다.
+- 추가 기능은 왼쪽 **고급** 메뉴의 네 개 탭(일정, 보호·시스템, 프로필·기록, 원격·언어)으로 나눈다.
 - Noto Sans KR, 앱 아이콘, 4개 언어의 UI를 사용한다.
 
 ## 기능
@@ -29,4 +29,4 @@
 ## 배포
 - .NET Framework 4.x WinForms standalone EXE
 - GitHub 저장소 `cybereun/windows-timer`, private visibility
-- `v1.1.0`: EXE, ZIP, SHA-256 manifest, 4개 언어 릴리스 노트
+- `v1.1.1`: EXE, ZIP, SHA-256 manifest, 4개 언어 릴리스 노트
