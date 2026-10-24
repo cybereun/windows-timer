@@ -1,4 +1,4 @@
-윈도우 타이머 1.1.3
+윈도우 타이머 1.1.5
 
 WindowsTimer.exe를 두 번 클릭해 바로 실행하세요. 앱 사용에는 별도 설치나 로그인이 필요 없습니다.
 Noto Sans KR 글꼴과 앱 아이콘이 실행 파일에 포함되어 있습니다.
@@ -15,10 +15,12 @@ Noto Sans KR 글꼴과 앱 아이콘이 실행 파일에 포함되어 있습니�
 - 한국어·영어·일본어·중국어 간체 UI
 - 휴대폰이나 다른 PC에서 원격 예약, 취소 및 상태 확인
 
-원격 연결은 같은 사설망 또는 양쪽 기기가 연결된 VPN에서 사용할 수 있습니다.
+같은 Wi-Fi에서는 PC 앱에 표시된 QR을 휴대폰 카메라로 스캔하면 바로 연결됩니다.
+휴대폰이 5G라면 [5G 인터넷 연결 시작]을 누르고, 표시된 새 `5G` QR을 스캔하세요.
+주소와 6자리 코드가 자동 입력되어 휴대폰에서 직접 입력할 필요가 없습니다.
+QR은 5분 유효 1회용 코드가 포함되어 있으니 다른 사람과 공유하지 마세요.
 LAN 연결은 암호화되지 않은 HTTP이므로 신뢰할 수 있는 사설 Wi-Fi에서만 사용하세요.
-인터넷을 통해 연결하려면 PC와 휴대폰을 같은 VPN에 연결하세요. 공용 인터넷에 포트를 열지 않습니다.
-PC 화면의 6자리 연결 코드는 5분 동안 한 번만 사용할 수 있습니다.
+5G 연결은 Cloudflare 임시 터널을 사용하며 앱을 종료하면 끊기고 주소가 바뀝니다.
 
 설정과 기록은 현재 Windows 사용자 폴더의 %LocalAppData%\WindowsTimer에 저장됩니다.
 절전에서 깨어나 예약이 임박했거나 지났으면 60초 더 기다린 후 안내합니다.
@@ -27,10 +29,11 @@ PC 깨우기는 Windows, BIOS 및 하드웨어의 절전 타이머 지원이 필
 
 바탕화면과 시작 메뉴 바로가기는 create-shortcuts.ps1로 만들 수 있습니다.
 안전 데모: WindowsTimer.exe --demo (실제 전원 명령이나 원격 서버를 실행하지 않음)
-안전 검사: WindowsTimer.exe --self-test (예약·보호·다국어·토큰 저장 검사, 전원 명령 미실행)
+안전 검사: WindowsTimer.exe --self-test (예약·보호·다국어·QR·원격 연결 검사, 전원 명령 미실행)
 앱 시작 후와 6시간마다 새 버전을 확인하고, GitHub CLI로 업데이트 파일을 내려받아 검증한 뒤 자동 교체·재실행합니다.
 업데이트는 비공개 GitHub 저장소에서 내려받으므로 winget install --id GitHub.cli 로 GitHub CLI를 설치하고 gh auth login --hostname github.com 으로 한 번 로그인하세요.
 v1.1.3에서 업데이트 연결 오류를 수정했습니다. v1.1.2 사용자는 v1.1.3을 직접 설치해야 하며, 이후 업데이트부터 자동으로 적용됩니다.
 
 개발자: Lebi (@cybereun)
 글꼴: Google Fonts Noto Sans KR · SIL Open Font License 1.1 · fonts\OFL.txt
+QR 라이브러리: QRCoder 1.8.1 · MIT License · QRCoder-LICENSE.txt

@@ -1,5 +1,31 @@
 # WindowsTimer Release History
 
+## v1.1.5 — 2026-10-24
+
+### 한국어
+- 원격 예약 화면에 연결 QR을 추가했습니다. LAN 주소 또는 5G HTTPS 주소와 6자리 1회용 코드를 함께 담아, 휴대폰 카메라로 스캔하면 코드 입력 없이 바로 페어링합니다.
+- 연결 코드를 QR의 URL 조각(fragment)에 넣어 초기 웹 요청 주소에 노출하지 않습니다. 코드는 사용 후 또는 5분 만료 후 자동 재발급됩니다.
+- QR에 현재 연결 경로(LAN/5G)를 표시하고 한국어·영어·일본어·중국어 간체 안내를 추가했습니다.
+- QRCoder 1.8.1을 실행 파일에 포함하고 MIT 라이선스를 배포물에 추가했습니다.
+
+### English
+- Added a pairing QR to remote settings. It includes the LAN or 5G HTTPS address and a one-time six-digit code, so scanning with a phone camera pairs without typing.
+- Keeps the code in the URL fragment so it is not sent with the initial web request. The code is renewed after use or after its five-minute expiry.
+- Labels the current LAN/5G QR and adds Korean, English, Japanese, and Simplified Chinese guidance.
+- Bundles QRCoder 1.8.1 in the executable and includes its MIT license in the release package.
+
+### 日本語
+- リモート設定にペアリング用QRを追加しました。LANまたは5GのHTTPSアドレスと1回限りの6桁コードを含み、スマートフォンのカメラでスキャンすると入力なしで接続できます。
+- コードは初回のWebリクエストで送信されないURLフラグメントに保持します。使用後または5分経過後に自動で再発行します。
+- 現在のLAN/5G用QRを表示し、韓国語・英語・日本語・簡体字中国語の案内を追加しました。
+- QRCoder 1.8.1を実行ファイルに同梱し、MITライセンスを配布物に追加しました。
+
+### 简体中文
+- 在远程设置中添加配对二维码。二维码包含 LAN 或 5G HTTPS 地址及一次性 6 位代码，用手机相机扫描即可自动配对，无需输入。
+- 配对码保存在 URL 片段中，不会随首次网页请求发送。使用后或 5 分钟过期后会自动重新生成。
+- 标明当前二维码适用于 LAN 或 5G，并提供韩语、英语、日语和简体中文说明。
+- 将 QRCoder 1.8.1 嵌入可执行文件，并在发布包中附上 MIT 许可证。
+
 ## v1.1.4 — 2026-10-24
 
 ### 한국어
