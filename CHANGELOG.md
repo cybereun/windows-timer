@@ -1,5 +1,27 @@
 # WindowsTimer Release History
 
+## v1.1.3 — 2026-10-24
+
+### 한국어
+- .NET Framework에서 GitHub TLS 연결이 실패해 자동 업데이트가 멈추던 문제를 수정했습니다. GitHub CLI를 통해 릴리스 정보를 확인하고 실행 파일을 내려받습니다.
+- 파일 크기, GitHub 릴리스 SHA-256, 실행 파일 제품 버전을 확인한 뒤에만 교체·재실행합니다.
+- v1.1.2 사용자는 v1.1.3을 한 번 직접 설치해야 합니다. 이후 버전부터 업데이트가 자동 적용됩니다.
+
+### English
+- Fixed automatic updates failing on .NET Framework TLS connections. Release metadata and the executable are now fetched through GitHub CLI.
+- Replacement and restart happen only after checking the asset size, GitHub release SHA-256, and executable product version.
+- Users on v1.1.2 must install v1.1.3 manually once; later updates apply automatically.
+
+### 日本語
+- .NET FrameworkのGitHub TLS接続が失敗して自動更新できない問題を修正しました。GitHub CLIでリリース情報と実行ファイルを取得します。
+- ファイルサイズ、GitHubリリースのSHA-256、実行ファイルの製品バージョンを確認してから置き換え、再起動します。
+- v1.1.2のユーザーはv1.1.3を一度手動でインストールしてください。以降の更新は自動で適用されます。
+
+### 简体中文
+- 修复了 .NET Framework 的 GitHub TLS 连接失败导致自动更新无法运行的问题。现在通过 GitHub CLI 获取发布信息和程序文件。
+- 只有在检查文件大小、GitHub 发布 SHA-256 和程序产品版本后，才会替换并重新启动。
+- v1.1.2 用户需要手动安装一次 v1.1.3；之后的更新会自动应用。
+
 ## v1.1.2 — 2026-10-24
 
 ### 한국어

@@ -3,7 +3,7 @@
 # 윈도우 타이머 · WindowsTimer
 
 [![Windows](https://img.shields.io/badge/Windows-10%2F11-557A95?style=for-the-badge&logo=windows)](#)
-[![Version](https://img.shields.io/badge/version-1.1.2-B25B3A?style=for-the-badge)](https://github.com/cybereun/windows-timer/releases)
+[![Version](https://img.shields.io/badge/version-1.1.3-B25B3A?style=for-the-badge)](https://github.com/cybereun/windows-timer/releases)
 [![Developer: Lebi](https://img.shields.io/badge/Developer-Lebi-4C3B32?style=for-the-badge&logo=github&logoColor=white)](https://github.com/cybereun)
 
 [한국어](#한국어) · [English](#english) · [日本語](#日本語) · [简体中文](#简体中文)
@@ -28,11 +28,11 @@
 - Windows 로그인 시 자동 실행, 절전 타이머로 PC 깨우기, 시스템 트레이 남은 시간 표시를 설정합니다.
 - 한국어, 영어, 일본어, 중국어 간체 UI를 제공합니다.
 - 휴대폰이나 다른 PC의 브라우저에서 현재 PC의 예약을 만들고 취소합니다.
-- 앱 시작 후 12초 뒤 최신 버전을 확인하고, 새 버전이 있으면 자동 다운로드·검증·교체·재실행합니다. 예약 실행 중에는 예약이 끝난 뒤 적용합니다. 비공개 저장소 접근을 위해 `winget install --id GitHub.cli`로 GitHub CLI를 설치하고 `gh auth login --hostname github.com`으로 한 번 로그인해야 합니다. v1.1.2는 자동 업데이트 기능을 포함한 첫 버전이라 기존 사용자는 한 번 직접 설치해야 하며, 이후 버전부터 자동 업데이트됩니다.
+- 앱 시작 후 12초 뒤 최신 버전을 확인하고, 새 버전이 있으면 GitHub CLI로 자동 다운로드·검증·교체·재실행합니다. 예약 실행 중에는 예약이 끝난 뒤 적용합니다. 비공개 저장소 접근을 위해 `winget install --id GitHub.cli`로 GitHub CLI를 설치하고 `gh auth login --hostname github.com`으로 한 번 로그인해야 합니다. v1.1.3에서 업데이트 연결 오류를 수정했습니다. v1.1.2 사용자는 v1.1.3을 한 번 직접 설치해야 하며, 이후 버전부터 자동 업데이트됩니다.
 
 ### 다운로드와 실행
 
-1. [Releases](https://github.com/cybereun/windows-timer/releases)에서 `WindowsTimer-v1.1.2.exe` 또는 배포 ZIP을 받습니다. 저장소가 비공개이므로 접근 권한이 있는 GitHub 계정으로 로그인해야 합니다.
+1. [Releases](https://github.com/cybereun/windows-timer/releases)에서 `WindowsTimer-v1.1.3.exe` 또는 배포 ZIP을 받습니다. 저장소가 비공개이므로 접근 권한이 있는 GitHub 계정으로 로그인해야 합니다.
 2. 실행 파일을 열고 메인 화면에서 종료·재부팅과 시간을 선택한 뒤 **예약 시작**을 누릅니다.
 3. 예약 중에는 앱을 실행해 두세요. 창을 닫으면 시스템 트레이로 숨겨지고, 트레이의 **앱 종료**는 예약도 취소합니다. 저장하지 않은 파일은 미리 저장하세요.
 
@@ -76,11 +76,11 @@ WindowsTimer is a lightweight Windows desktop app for scheduling shutdown, resta
 - Start with Windows, wake the PC for a scheduled time, and show the remaining time in the system tray.
 - Use the interface in Korean, English, Japanese, or Simplified Chinese.
 - Create or cancel a schedule from a phone or another PC browser.
-- Checks for updates 12 seconds after launch and automatically downloads, verifies, replaces, and restarts for a newer release. An active one-time schedule finishes first. Because the repository is private, install GitHub CLI with `winget install --id GitHub.cli` and sign in once with `gh auth login --hostname github.com`. v1.1.2 is the first release with auto-update, so existing users must install it manually once; later versions update automatically.
+- Checks for updates 12 seconds after launch and uses GitHub CLI to download, verify, replace, and restart for a newer release. An active one-time schedule finishes first. Because the repository is private, install GitHub CLI with `winget install --id GitHub.cli` and sign in once with `gh auth login --hostname github.com`. v1.1.3 fixes the update connection. Users on v1.1.2 must install v1.1.3 manually once; later versions update automatically.
 
 ### Download and run
 
-1. Download `WindowsTimer-v1.1.2.exe` or the release ZIP from [Releases](https://github.com/cybereun/windows-timer/releases). The repository is private, so sign in with an account that has access.
+1. Download `WindowsTimer-v1.1.3.exe` or the release ZIP from [Releases](https://github.com/cybereun/windows-timer/releases). The repository is private, so sign in with an account that has access.
 2. Run the executable, choose shutdown or restart and a time on the main screen, then select **예약 시작** (Start schedule).
 3. Keep the app running while a schedule is active. Closing the window hides it in the system tray. **앱 종료** (Exit app) in the tray cancels active schedules too. Save open files first.
 
@@ -124,11 +124,11 @@ WindowsTimer は、Windows のシャットダウン、再起動、スリープ�
 - Windowsログイン時の自動起動、スリープ解除タイマー、システムトレイの残り時間表示に対応します。
 - 韓国語、英語、日本語、簡体字中国語のUIを選べます。
 - スマートフォンや別のPCのブラウザーから予約を作成・取り消せます。
-- 起動から12秒後に新しいバージョンを確認し、更新があれば自動でダウンロード、検証、置き換え、再起動します。1回予約の実行中は予約終了後に適用します。リポジトリが非公開のため、`winget install --id GitHub.cli`でGitHub CLIをインストールし、`gh auth login --hostname github.com`で一度ログインしてください。v1.1.2は自動更新に対応した最初のバージョンです。既存ユーザーは一度だけ手動でインストールしてください。以降の更新は自動です。
+- 起動から12秒後に新しいバージョンを確認し、GitHub CLIで更新をダウンロード、検証、置き換え、再起動します。1回予約の実行中は予約終了後に適用します。リポジトリが非公開のため、`winget install --id GitHub.cli`でGitHub CLIをインストールし、`gh auth login --hostname github.com`で一度ログインしてください。v1.1.3で更新接続の不具合を修正しました。v1.1.2のユーザーは一度だけv1.1.3を手動でインストールしてください。以降の更新は自動です。
 
 ### ダウンロードと実行
 
-1. [Releases](https://github.com/cybereun/windows-timer/releases) から `WindowsTimer-v1.1.2.exe` または ZIP をダウンロードします。非公開リポジトリのため、アクセス権のある GitHub アカウントが必要です。
+1. [Releases](https://github.com/cybereun/windows-timer/releases) から `WindowsTimer-v1.1.3.exe` または ZIP をダウンロードします。非公開リポジトリのため、アクセス権のある GitHub アカウントが必要です。
 2. 実行ファイルを開き、メイン画面でシャットダウンまたは再起動と時間を選び、**예약 시작**（予約開始）を押します。
 3. 予約中はアプリを起動したままにしてください。ウィンドウを閉じるとシステムトレイに格納されます。トレイの **앱 종료**（アプリ終了）を選ぶと予約も取り消されます。開いているファイルは先に保存してください。
 
@@ -172,11 +172,11 @@ WindowsTimer 是一款用于预约 Windows 关机、重启、睡眠和休眠的�
 - 设置 Windows 登录时启动、预约时唤醒电脑，以及在系统托盘显示剩余时间。
 - 支持韩语、英语、日语和简体中文界面。
 - 从手机或其他电脑的浏览器创建或取消预约。
-- 启动12秒后检查新版本；如有更新，会自动下载、验证、替换并重新启动。单次预约正在执行时，会等预约结束后再应用更新。由于仓库为私有，请运行 `winget install --id GitHub.cli` 安装 GitHub CLI，再运行 `gh auth login --hostname github.com` 登录一次。v1.1.2 是首个支持自动更新的版本，现有用户需要手动安装一次；之后的版本会自动更新。
+- 启动12秒后检查新版本；发现更新时，使用 GitHub CLI 下载、验证、替换程序并重新启动。单次预约正在执行时，会等预约结束后再应用更新。由于仓库为私有，请运行 `winget install --id GitHub.cli` 安装 GitHub CLI，再运行 `gh auth login --hostname github.com` 登录一次。v1.1.3 修复了更新连接问题。v1.1.2 用户需要手动安装一次 v1.1.3；之后的版本会自动更新。
 
 ### 下载和运行
 
-1. 从 [Releases](https://github.com/cybereun/windows-timer/releases) 下载 `WindowsTimer-v1.1.2.exe` 或发布 ZIP。仓库为私有，需要使用有访问权限的 GitHub 账号登录。
+1. 从 [Releases](https://github.com/cybereun/windows-timer/releases) 下载 `WindowsTimer-v1.1.3.exe` 或发布 ZIP。仓库为私有，需要使用有访问权限的 GitHub 账号登录。
 2. 运行程序，在主界面选择关机或重启和时间，然后点击 **예약 시작**（开始预约）。
 3. 预约期间请保持应用运行。关闭窗口会将其隐藏到系统托盘；从托盘选择 **앱 종료**（退出应用）也会取消预约。请先保存文件。
 

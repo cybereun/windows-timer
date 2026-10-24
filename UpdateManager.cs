@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Net;
 using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
@@ -25,15 +24,14 @@ namespace WindowsTimer {
   public Version LatestVersion { get; internal set; }
   public bool IsNewer { get { return UpdateManager.IsNewer(CurrentVersion,LatestVersion); } }
   public string TagName { get; internal set; }
-  public long ExecutableAssetId { get; internal set; }
   public long ExecutableAssetSize { get; internal set; }
   public string ExecutableAssetName { get; internal set; }
   public string Sha256 { get; internal set; }
-  internal string AccessToken { get; set; }
  }
 
  public static class UpdateManager {
-  const string ApiRoot="https://api.github.com/repos/cybereun/windows-timer";
+  const string Repository="cybereun/windows-timer";
+  const string LatestReleaseApi="repos/cybereun/windows-timer/releases/latest";
   const long MaximumAssetBytes=100L*1024L*1024L;
   static readonly Regex VersionPattern=new Regex("^v?(\\d+)\\.(\\d+)(?:\\.(\\d+))?(?:\\.(\\d+))?$",RegexOptions.IgnoreCase|RegexOptions.CultureInvariant);
 
@@ -55,31 +53,36 @@ namespace WindowsTimer {
   public static string ExecutableAssetName(Version version) { return "WindowsTimer-v"+Normalize(version).ToString(3)+".exe"; }
 
   public static UpdateInfo CheckLatest() {
-   string token=GetAccessToken();if(String.IsNullOrWhiteSpace(token))throw new UpdateException(UpdateFailure.Authentication);
-   Dictionary<string,object> release=ReadObject(GetJson(new Uri(ApiRoot+"/releases/latest"),token));
+   Dictionary<string,object> release=ReadObject(RunGh("api "+LatestReleaseApi,30000));
    if(IsTrue(release,"draft")||IsTrue(release,"prerelease"))throw new UpdateException(UpdateFailure.InvalidRelease);
    string tag=GetString(release,"tag_name");Version latest=ParseVersion(tag);if(latest==null)throw new UpdateException(UpdateFailure.InvalidRelease);
-   UpdateInfo result=new UpdateInfo{CurrentVersion=CurrentVersion,LatestVersion=Normalize(latest),TagName=tag,AccessToken=token};
+   UpdateInfo result=new UpdateInfo{CurrentVersion=CurrentVersion,LatestVersion=Normalize(latest),TagName=tag};
    if(!result.IsNewer)return result;
    string expected=ExecutableAssetName(latest);object list;
-   if(!release.TryGetValue("assets",out list)||!(list is ArrayList))throw new UpdateException(UpdateFailure.InvalidRelease);
-   foreach(object entry in (ArrayList)list){Dictionary<string,object> asset=entry as Dictionary<string,object>;if(asset==null||!String.Equals(GetString(asset,"name"),expected,StringComparison.OrdinalIgnoreCase))continue;
-    result.ExecutableAssetId=GetLong(asset,"id");result.ExecutableAssetSize=GetLong(asset,"size");result.ExecutableAssetName=expected;result.Sha256=ParseDigest(GetString(asset,"digest"));break;
+   IList assets=release.TryGetValue("assets",out list)?list as IList:null;if(assets==null)throw new UpdateException(UpdateFailure.InvalidRelease);
+   foreach(object entry in assets){Dictionary<string,object> asset=entry as Dictionary<string,object>;if(asset==null||!String.Equals(GetString(asset,"name"),expected,StringComparison.OrdinalIgnoreCase))continue;
+    result.ExecutableAssetSize=GetLong(asset,"size");result.ExecutableAssetName=expected;result.Sha256=ParseDigest(GetString(asset,"digest"));break;
    }
-   if(result.ExecutableAssetId<=0||result.ExecutableAssetSize<=0||result.ExecutableAssetSize>MaximumAssetBytes||String.IsNullOrEmpty(result.Sha256))throw new UpdateException(UpdateFailure.InvalidRelease);
+   if(result.ExecutableAssetSize<=0||result.ExecutableAssetSize>MaximumAssetBytes||String.IsNullOrEmpty(result.Sha256))throw new UpdateException(UpdateFailure.InvalidRelease);
    return result;
   }
 
   public static string DownloadAndVerify(UpdateInfo update) {
-   if(update==null||!update.IsNewer||update.ExecutableAssetId<=0||String.IsNullOrEmpty(update.AccessToken)||String.IsNullOrEmpty(update.Sha256))throw new UpdateException(UpdateFailure.InvalidRelease);
-   string file=Path.Combine(Path.GetTempPath(),"WindowsTimer-update-"+Guid.NewGuid().ToString("N")+".exe");
+   if(update==null||!update.IsNewer||String.IsNullOrEmpty(update.TagName)||String.IsNullOrEmpty(update.ExecutableAssetName)||update.ExecutableAssetSize<=0||String.IsNullOrEmpty(update.Sha256))throw new UpdateException(UpdateFailure.InvalidRelease);
+   string id=Guid.NewGuid().ToString("N");string directory=Path.Combine(Path.GetTempPath(),"WindowsTimer-download-"+id);string file=Path.Combine(Path.GetTempPath(),"WindowsTimer-update-"+id+".exe");
    try {
-    DownloadAsset(update.ExecutableAssetId,update.AccessToken,update.ExecutableAssetSize,file);
+    Directory.CreateDirectory(directory);
+    string arguments="release download "+QuoteArgument(update.TagName)+" --repo "+Repository+" --pattern "+QuoteArgument(update.ExecutableAssetName)+" --dir "+QuoteArgument(directory);
+    RunGh(arguments,120000);
+    string assetPath=Path.Combine(directory,update.ExecutableAssetName);
+    if(!File.Exists(assetPath))throw new UpdateException(UpdateFailure.Verification);
+    FileInfo info=new FileInfo(assetPath);if(info.Length!=update.ExecutableAssetSize||info.Length>MaximumAssetBytes)throw new UpdateException(UpdateFailure.Verification);
+    File.Move(assetPath,file);
     string actual=ComputeSha256(file);if(!String.Equals(actual,update.Sha256,StringComparison.OrdinalIgnoreCase))throw new UpdateException(UpdateFailure.Verification);
     Version downloaded=ParseVersion(FileVersionInfo.GetVersionInfo(file).ProductVersion);if(downloaded==null)downloaded=ParseVersion(FileVersionInfo.GetVersionInfo(file).FileVersion);
     if(downloaded==null||Normalize(downloaded)!=Normalize(update.LatestVersion))throw new UpdateException(UpdateFailure.Verification);
     return file;
-   } catch { TryDelete(file);throw; }
+   } catch { TryDelete(file);throw; } finally { try{if(Directory.Exists(directory))Directory.Delete(directory,true);}catch{} }
   }
 
   public static string ComputeSha256(string path) {
@@ -91,47 +94,33 @@ namespace WindowsTimer {
    string hash=digest.Substring(prefix.Length).Trim();return Regex.IsMatch(hash,"^[a-fA-F0-9]{64}$")?hash.ToLowerInvariant():null;
   }
 
-  static string GetAccessToken() {
-   string token=Environment.GetEnvironmentVariable("GH_TOKEN");if(String.IsNullOrWhiteSpace(token))token=Environment.GetEnvironmentVariable("GITHUB_TOKEN");if(!String.IsNullOrWhiteSpace(token))return token.Trim();
-   Process process=null;StringBuilder output=new StringBuilder();
+  static string RunGh(string arguments,int timeoutMs) {
+   Process process=null;StringBuilder output=new StringBuilder(),error=new StringBuilder();object outputLock=new object(),errorLock=new object();
    try {
-    ProcessStartInfo start=new ProcessStartInfo{FileName="gh",Arguments="auth token --hostname github.com",UseShellExecute=false,CreateNoWindow=true,WindowStyle=ProcessWindowStyle.Hidden,RedirectStandardOutput=true,RedirectStandardError=true};
-    process=new Process{StartInfo=start};process.OutputDataReceived+=delegate(object sender,DataReceivedEventArgs e){if(e.Data!=null)lock(output)output.AppendLine(e.Data);};process.ErrorDataReceived+=delegate{};
-    if(!process.Start())return null;process.BeginOutputReadLine();process.BeginErrorReadLine();if(!process.WaitForExit(10000)){try{process.Kill();}catch{}return null;}process.WaitForExit();
-    token=output.ToString().Trim();return process.ExitCode==0&&!String.IsNullOrWhiteSpace(token)?token:null;
-   } catch { return null; } finally { if(process!=null)process.Dispose(); }
+    ProcessStartInfo start=new ProcessStartInfo{FileName="gh",Arguments=arguments,UseShellExecute=false,CreateNoWindow=true,WindowStyle=ProcessWindowStyle.Hidden,RedirectStandardOutput=true,RedirectStandardError=true};
+    process=new Process{StartInfo=start};
+    process.OutputDataReceived+=delegate(object sender,DataReceivedEventArgs e){if(e.Data!=null)lock(outputLock)output.AppendLine(e.Data);};
+    process.ErrorDataReceived+=delegate(object sender,DataReceivedEventArgs e){if(e.Data!=null)lock(errorLock)error.AppendLine(e.Data);};
+    if(!process.Start())throw new UpdateException(UpdateFailure.Authentication);
+    process.BeginOutputReadLine();process.BeginErrorReadLine();
+    if(!process.WaitForExit(timeoutMs)){try{process.Kill();}catch{}try{process.WaitForExit();}catch{}throw new UpdateException(UpdateFailure.Network);}
+    process.WaitForExit();string stdout,stderr;lock(outputLock)stdout=output.ToString();lock(errorLock)stderr=error.ToString();
+    if(process.ExitCode!=0)throw new UpdateException(IsAuthenticationFailure(stdout+"\n"+stderr)?UpdateFailure.Authentication:UpdateFailure.Network);
+    return stdout;
+   } catch(UpdateException){throw;} catch {throw new UpdateException(UpdateFailure.Authentication);} finally {if(process!=null)process.Dispose();}
   }
 
-  static string GetJson(Uri uri,string token) {
-   try {
-    HttpWebRequest request=(HttpWebRequest)WebRequest.Create(uri);request.Method="GET";request.Accept="application/vnd.github+json";request.UserAgent="WindowsTimer-Updater";request.Headers["X-GitHub-Api-Version"]="2022-11-28";request.Headers[HttpRequestHeader.Authorization]="Bearer "+token;request.Timeout=15000;request.ReadWriteTimeout=15000;request.AutomaticDecompression=DecompressionMethods.GZip|DecompressionMethods.Deflate;
-    using(HttpWebResponse response=(HttpWebResponse)request.GetResponse())using(Stream stream=response.GetResponseStream())using(StreamReader reader=new StreamReader(stream,Encoding.UTF8)){return reader.ReadToEnd();}
-   } catch(WebException ex) {
-    HttpWebResponse response=ex.Response as HttpWebResponse;if(response!=null&&(response.StatusCode==HttpStatusCode.Unauthorized||response.StatusCode==HttpStatusCode.Forbidden||response.StatusCode==HttpStatusCode.NotFound))throw new UpdateException(UpdateFailure.Authentication,ex);
-    throw new UpdateException(UpdateFailure.Network,ex);
-   } catch { throw new UpdateException(UpdateFailure.Network); }
+  static bool IsAuthenticationFailure(string text) {
+   return Regex.IsMatch(text??String.Empty,@"HTTP\s+(401|403|404)\b",RegexOptions.IgnoreCase)||
+    text.IndexOf("not logged into any GitHub hosts",StringComparison.OrdinalIgnoreCase)>=0||
+    text.IndexOf("authentication required",StringComparison.OrdinalIgnoreCase)>=0||
+    text.IndexOf("could not resolve to a repository",StringComparison.OrdinalIgnoreCase)>=0;
   }
 
-  static void DownloadAsset(long assetId,string token,long expectedSize,string file) {
-   Uri uri=new Uri(ApiRoot+"/releases/assets/"+assetId.ToString());
-   for(int redirects=0;redirects<=3;redirects++) {
-    HttpWebRequest request=(HttpWebRequest)WebRequest.Create(uri);request.Method="GET";request.Accept="application/octet-stream";request.UserAgent="WindowsTimer-Updater";request.Headers["X-GitHub-Api-Version"]="2022-11-28";request.Timeout=30000;request.ReadWriteTimeout=30000;request.AllowAutoRedirect=false;
-    if(String.Equals(uri.Host,"api.github.com",StringComparison.OrdinalIgnoreCase))request.Headers[HttpRequestHeader.Authorization]="Bearer "+token;
-    HttpWebResponse response=null;
-    try { response=(HttpWebResponse)request.GetResponse(); }
-    catch(WebException ex) { response=ex.Response as HttpWebResponse;if(response==null)throw new UpdateException(UpdateFailure.Network,ex); }
-    using(response) {
-     int code=(int)response.StatusCode;
-     if(code==301||code==302||code==303||code==307||code==308){string location=response.Headers[HttpResponseHeader.Location];if(String.IsNullOrWhiteSpace(location)||redirects==3)throw new UpdateException(UpdateFailure.Network);Uri next=new Uri(uri,location);if(next.Scheme!=Uri.UriSchemeHttps||!(next.Host.Equals("release-assets.githubusercontent.com",StringComparison.OrdinalIgnoreCase)||next.Host.EndsWith(".githubusercontent.com",StringComparison.OrdinalIgnoreCase)||next.Host.Equals("github.com",StringComparison.OrdinalIgnoreCase)))throw new UpdateException(UpdateFailure.Network);uri=next;continue;}
-     if(code!=200)throw new UpdateException(code==401||code==403||code==404?UpdateFailure.Authentication:UpdateFailure.Network);
-     if(response.ContentLength>MaximumAssetBytes||(response.ContentLength>0&&response.ContentLength!=expectedSize))throw new UpdateException(UpdateFailure.Verification);
-     using(Stream input=response.GetResponseStream())using(FileStream output=new FileStream(file,FileMode.CreateNew,FileAccess.Write,FileShare.None)){
-      byte[] buffer=new byte[65536];long total=0;int read;while((read=input.Read(buffer,0,buffer.Length))>0){total+=read;if(total>MaximumAssetBytes||total>expectedSize)throw new UpdateException(UpdateFailure.Verification);output.Write(buffer,0,read);}output.Flush();if(total!=expectedSize)throw new UpdateException(UpdateFailure.Verification);
-     }
-     return;
-    }
-   }
-   throw new UpdateException(UpdateFailure.Network);
+  static string QuoteArgument(string value) {
+   StringBuilder quoted=new StringBuilder("\"");int slashes=0;
+   foreach(char c in value){if(c=='\\'){slashes++;continue;}if(c=='\"'){quoted.Append('\\',slashes*2+1);quoted.Append(c);slashes=0;continue;}if(slashes>0){quoted.Append('\\',slashes);slashes=0;}quoted.Append(c);}
+   if(slashes>0)quoted.Append('\\',slashes*2);quoted.Append('\"');return quoted.ToString();
   }
 
   static Dictionary<string,object> ReadObject(string json) {
