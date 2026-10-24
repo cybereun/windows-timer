@@ -1,5 +1,31 @@
 # WindowsTimer Release History
 
+## v1.1.2 — 2026-10-24
+
+### 한국어
+- 앱 시작 후와 6시간마다 GitHub Releases의 버전을 확인하고, 새 실행 파일을 자동으로 다운로드해 SHA-256과 제품 버전을 검증한 뒤 교체·재실행합니다.
+- 활성 일회 예약이나 2분 이내의 반복 예약이 있으면 파일은 미리 받고 예약이 안전해진 뒤 적용합니다.
+- 비공개 저장소 업데이트에 GitHub CLI 로그인을 사용하며, 업데이트 상태와 오류를 한국어·영어·일본어·중국어 간체로 표시합니다.
+- 버전 비교, 릴리스 파일 이름과 업데이트 상태 번역 검사를 추가했습니다. 안전 검사에서 실제 전원 명령은 실행하지 않습니다.
+
+### English
+- Checks GitHub Releases after launch and every six hours, then downloads, verifies the SHA-256 digest and product version, replaces the executable, and restarts the app.
+- Downloads can finish during a schedule; installation waits until a one-time schedule is inactive and no recurring action is due within two minutes.
+- Uses GitHub CLI authentication for the private repository and localizes update status and errors in Korean, English, Japanese, and Simplified Chinese.
+- Added safe checks for version comparison, release asset naming, and update status translations. Tests issue no Windows power commands.
+
+### 日本語
+- 起動後と6時間ごとにGitHub Releasesを確認し、新しい実行ファイルを自動でダウンロードします。SHA-256と製品バージョンを検証してから置き換え、アプリを再起動します。
+- 1回予約が有効な間、または2分以内に繰り返し実行がある場合は、ダウンロード後に安全な時点まで適用を待ちます。
+- 非公開リポジトリへのアクセスにGitHub CLI認証を使用し、更新状態とエラーを韓国語・英語・日本語・簡体字中国語で表示します。
+- バージョン比較、リリースファイル名、更新状態の翻訳を検査する安全なテストを追加しました。テストではWindowsの電源命令を実行しません。
+
+### 简体中文
+- 启动后及每六小时检查 GitHub Releases；发现新版本后自动下载，并验证 SHA-256 和产品版本，再替换程序并重新启动。
+- 可在预约期间完成下载；单次预约仍有效或重复操作将在两分钟内执行时，会等到安全时机再安装。
+- 使用 GitHub CLI 认证访问私有仓库，并以韩语、英语、日语和简体中文显示更新状态与错误。
+- 新增版本比较、发布文件名和更新状态翻译的安全检查。测试不会执行 Windows 电源命令。
+
 ## v1.1.1 — 2026-10-24
 
 ### 한국어

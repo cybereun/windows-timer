@@ -10,5 +10,5 @@ $resources = @(
     "/resource:$(Join-Path $appDir 'fonts\NotoSansKR-VF.ttf'),WindowsTimer.fonts.NotoSansKR-VF.ttf",
     "/resource:$(Join-Path $appDir 'fonts\OFL.txt'),WindowsTimer.fonts.OFL.txt"
 )
-& $compiler /nologo /target:winexe /optimize+ /win32icon:"$appDir\WindowsTimer.ico" /out:"$OutputPath" /reference:System.Windows.Forms.dll /reference:System.Drawing.dll /reference:System.Web.Extensions.dll /reference:System.Security.dll $resources "$appDir\AssemblyInfo.cs" "$appDir\Program.cs" "$appDir\RemoteServer.cs"
+& $compiler /nologo /target:winexe /optimize+ /win32icon:"$appDir\WindowsTimer.ico" /out:"$OutputPath" /reference:System.Windows.Forms.dll /reference:System.Drawing.dll /reference:System.Web.Extensions.dll /reference:System.Security.dll $resources "$appDir\AssemblyInfo.cs" "$appDir\Program.cs" "$appDir\RemoteServer.cs" "$appDir\UpdateManager.cs"
 if ($LASTEXITCODE -ne 0) { throw 'Build failed' }
