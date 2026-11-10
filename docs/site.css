@@ -6,3 +6,4 @@
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
 .hero h1{white-space:pre-line}
 @media (min-width:741px) and (max-width:900px){.hero{grid-template-columns:minmax(0,1fr);gap:20px}.hero-copy{width:min(100%,620px);margin:0 auto}.hero-visual{width:min(100%,650px);margin:0 auto}}
+html,body{overflow-x:clip}
